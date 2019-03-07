@@ -1,10 +1,10 @@
-package main
+package lsd
 
-import (
+/*import (
 	"fmt"
 	"math/rand"
 	"time"
-)
+)*/
 
 func maxDigits(arg0 []int) int {
 	max:=0
@@ -12,7 +12,7 @@ func maxDigits(arg0 []int) int {
 		result:=number
 		for i:=0;result>0;i++{
 			result=int(result/10)
-			if(i>max){ 
+			if(i>max){
 				max=i
 			}
 		}
@@ -20,7 +20,7 @@ func maxDigits(arg0 []int) int {
 	return max+1
 }
 
-func lsd(arg0 []int) []int{
+func Radix(arg0 []int) []int{
 	ordered:=true
 	for i:=0;ordered && i<len(arg0)-1;i++ {
 		if(arg0[i]>arg0[i+1]){
@@ -41,7 +41,7 @@ func lsd(arg0 []int) []int{
 			/*To get the digit at position i, we create an array of
 			digits and initialice it with a digit in each position.
 			To do this we use a temporal variable "tmp", which
-			will be reduced in one digit each time, i times. Then we 
+			will be reduced in one digit each time, i times. Then we
 			access the i possition of the digits array. */
 			for pos:=0; pos<=i; pos++{
 				digits[pos]=tmp%10
@@ -49,30 +49,16 @@ func lsd(arg0 []int) []int{
 			}
 			tmp=digits[i]
 			//fmt.Println("aux= ", tmp)	//only testing purposes
-			
+
 			//We add the number we are comparing to its "bucket"
 			buckets[tmp]= append(buckets[tmp], elem)
 		}
 		lsd=nil
 		for _,bucket:=range(buckets){
 			for _,elem:=range(bucket){
-				lsd=append(lsd, elem)	
+				lsd=append(lsd, elem)
 			}
 		}
 	}
 	return lsd
 }
-/*func main(){
-
-	var array []int
-	for i:=0;i<10000000;i++{
-		array=append(array, rand.Intn(1000000))
-	}
-	//fmt.Println(array)
-	start:=time.Now()
-	anotherArray:=short(array[:])
-	t:=time.Now()
-	fmt.Println(anotherArray)
-	fmt.Println(t.Sub(start))
-}*/
-
